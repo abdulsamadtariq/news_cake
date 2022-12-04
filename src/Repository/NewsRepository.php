@@ -26,11 +26,8 @@ class NewsRepository extends ServiceEntityRepository
 
     public function add(News $entity, bool $flush = false): void
     {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->manager->persist($entity);
+        $this->manager->flush();
     }
 
     public function remove(News $entity, bool $flush = false): void
@@ -40,7 +37,7 @@ class NewsRepository extends ServiceEntityRepository
     }
     public function getPaginatedData()
     {
-        return $this->createQueryBuilder('n');
+        return $this->createQueryBuilder('n')->orderBy("n.id","DESC");
     }
 
 //    /**
@@ -58,13 +55,13 @@ class NewsRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?News
-//    {
-//        return $this->createQueryBuilder('n')
-//            ->andWhere('n.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+   public function findOneByTitle($value): ?News
+   {
+       return $this->createQueryBuilder('n')
+           ->andWhere('n.title = :val')
+           ->setParameter('val', $value)
+           ->getQuery()
+           ->getOneOrNullResult()
+       ;
+   }
 }

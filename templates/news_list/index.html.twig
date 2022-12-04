@@ -18,9 +18,9 @@
             <img src="{{news.picture}}" class="card-img-top" alt="Not Found">
             <div class="card-body">
               <h5 class="card-title">{{news.title}}</h5>
-              <p> <b>Created Date: </b> <span class="text-success">{{ news.createdAt|date('Y-m-d') }}</span></p>
-              <p> <b>Last Updated: </b> <span class="text-success">{{ news.updatedAt|date('Y-m-d') }}</span></p>
-                <p> <b>Publish Date: </b> <span class="text-success">{{ news.addedAt|date('Y-m-d') }}</span></p>
+              <p> <b>Created Date: </b> <small class="text-success">{{ news.createdAt|date('Y-m-d | h:i a') }}</small></p>
+              <p> <b>Last Updated: </b> <small class="text-success">{{ news.updatedAt|date('Y-m-d | h:i a') }}</small></p>
+                <p> <b>Publish Date: </b> <small class="text-success">{{ news.addedAt|date('Y-m-d | h:i a') }}</small></p>
               <p class="card-text">{{news.shortDescription}}</p>
               {%if is_granted('ROLE_ADMIN')%}
               <form method="post" action="{{ path('app_news_delete', {'id': news.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
